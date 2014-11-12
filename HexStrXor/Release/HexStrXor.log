@@ -1,0 +1,8 @@
+﻿  stdafx.cpp
+D:\Microsoft Visual Studio 12.0\VC\atlmfc\include\afx.h(38): warning C4996: 'MBCS_Support_Deprecated_In_MFC': MBCS support in MFC is deprecated and may be removed in a future version of MFC.
+          D:\Microsoft Visual Studio 12.0\VC\atlmfc\include\afx.h(33) : 参见“MBCS_Support_Deprecated_In_MFC”的声明
+  HexStrXor.cpp
+  HexStrXorDlg.cpp
+  正在生成代码
+  已完成代码的生成
+  HexStrXor.vcxproj -> G:\VSprj\HexStrXor\Release\HexStrXor.exe
