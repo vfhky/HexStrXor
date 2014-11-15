@@ -161,19 +161,19 @@ HCURSOR CHexStrXorDlg::OnQueryDragIcon()
 
 
 //ASCII码中将字符转换成对应的十进制数
-int char2int(char input)
+int CHexStrXorDlg::char2int(char input)
 {
 	return input>64 ? (input - 55) : (input - 48);
 }
 
 //ASCII码中将十进制数转换成对应的字符
-int int2char(char input)
+int CHexStrXorDlg::int2char(char input)
 {
 	return input>9 ? (input + 55) : (input + 48);
 }
 
 //将十六进制字符串HexStr1和HexStr2异或得到HexStr
-void hexstrxor(char * HexStr1, char * HexStr2, char * HexStr)
+void CHexStrXorDlg::hexstrxor(char * HexStr1, char * HexStr2, char * HexStr)
 {
 	int i, iHexStr1Len, iHexStr2Len, iHexStrLenLow, iHexStrLenGap;
 
@@ -253,7 +253,7 @@ void CHexStrXorDlg::OnBnClickedButton1()
 
 
 //检查输入的十六进制字符串是否合法
-int CheckInputHex(CEdit* pEdit, CString HexInput)
+int CHexStrXorDlg::CheckInputHex(CEdit* pEdit, CString HexInput)
 {
 	//获取字符串的长度
 	int i, HexInputLen;
@@ -334,4 +334,36 @@ void CHexStrXorDlg::OnEnKillfocusEdit2()
 	UpdateHexStr2Len.Format("%s%d%s", "字节=[", HexStr2.GetLength(), "]");
 	//SetDlgItemText(IDC_STATIC_STR2, UpdateHexStr2Len );
 	GetDlgItem(IDC_STATIC_STR2)->SetWindowTextA(UpdateHexStr2Len);
+}
+
+BOOL CHexStrXorDlg::PreTranslateMessage(MSG* pMsg)
+{
+	// TODO:  在此添加专用代码和/或调用基类
+	if ((pMsg->message == WM_KEYDOWN && (int)pMsg->wParam == VK_RETURN))
+	{
+		CWnd * wind = GetFocus();
+		if (wind)
+		{
+			char str[50];
+			CString ClassName = _T("Button");
+			GetClassName(wind->m_hWnd, str, 50);
+			if (ClassName == str)
+			{
+				UINT i = wind->GetDlgCtrlID();
+				SendMessage(WM_COMMAND, i, (LPARAM)wind->m_hWnd);
+				return TRUE;
+
+			}
+		}
+
+		//获取当前焦点空间的下一个控件的句柄
+		wind = GetNextDlgTabItem(GetFocus());
+		if (wind)
+		{
+			//设置下一个控件得到输入焦点
+			wind->SetFocus();
+			return TRUE;
+		}
+	}
+	return CDialogEx::PreTranslateMessage(pMsg);
 }

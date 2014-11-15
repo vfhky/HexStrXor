@@ -36,7 +36,16 @@ public:
 	CString HexStr2;
 	// 异或结果
 	CString HexStr;
+	//ASCII码中将字符转换成对应的十进制数
+	int char2int(char input);
+	//ASCII码中将十进制数转换成对应的字符
+	int int2char(char input);
+	//将十六进制字符串HexStr1和HexStr2异或得到HexStr
+	void hexstrxor(char * HexStr1, char * HexStr2, char * HexStr);
+	//检查输入的十六进制字符串是否合法
+	int CheckInputHex(CEdit* pEdit, CString HexInput);
 	afx_msg void OnBnClickedButton1();
 	afx_msg void OnEnKillfocusEdit1();
 	afx_msg void OnEnKillfocusEdit2();
+	virtual BOOL PreTranslateMessage(MSG* pMsg);
 };
